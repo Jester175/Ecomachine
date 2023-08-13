@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
+import { Canvas } from '@react-three/fiber'
+import { Spinner } from './components/Spinner';
+
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { Experience } from './Experience';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+root.render(
+  <Canvas
+    shadows
+    gl={{ antialias: true }}
+    camera={{ far: 200, near: 0.1, fov: 45, position: [-1.3, 0.4, 0] }}
+  >
+    <Suspense fallback={<Spinner />}>
+      <Experience />
+    </Suspense>
+  </Canvas>
+);
